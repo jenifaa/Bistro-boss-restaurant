@@ -5,19 +5,19 @@ const Navbar = () => {
   const links = (
     <>
       <li>
-        <NavLink>Home</NavLink>
+        <Link>Home</Link>
       </li>
       <li>
-        <NavLink>Contact Us</NavLink>
+        <Link>Contact Us</Link>
       </li>
       <li>
-        <NavLink>dashBoard</NavLink>
+        <Link>dashBoard</Link>
       </li>
       <li>
-        <NavLink>Our Menu</NavLink>
+        <Link to="/menu">Our Menu</Link>
       </li>
       <li>
-        <NavLink>our Shop</NavLink>
+        <Link to="/order">our Shop</Link>
       </li>
     </>
   );
@@ -44,7 +44,7 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+              className="menu menu-sm dropdown-content bg-black rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
               {links}
             </ul>

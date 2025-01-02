@@ -1,5 +1,7 @@
 import React from "react";
 import Cover from "../../Shared/Cover";
+import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 const MenuCategory = ({ items ,title,coverImg}) => {
   return (
@@ -22,12 +24,12 @@ const MenuCategory = ({ items ,title,coverImg}) => {
           </div>
         ))}
       </div>
-      <div className="flex justify-center items-center my-4">
-        {" "}
+      <Link to={`/order/${title}`} className="flex justify-center items-center my-4">
+      
         <button className="text-xl font py-2 px-3 border-b-2 border-black rounded-xl">
         ORDER YOUR FAVOURITE FOOD
         </button>
-      </div>
+      </Link>
     </div>
   );
 };

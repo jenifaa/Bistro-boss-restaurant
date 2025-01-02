@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../provider/AuthProvider";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
+  const { user, logOut } = useContext(AuthContext);
+  const handleLogOut = () => {
+    logOut().then(() => {
+      Swal.fire({
+        title: "LogOut Successful",
+        text: "You LogOut successfully!!",
+        icon: "success",
+      });
+    });
+  };
   const links = (
     <>
       <li>
@@ -59,7 +71,25 @@ const Navbar = () => {
             <ul className="menu menu-horizontal px-1">{links}</ul>
           </div>
 
-          <button className="font-bold">SignOut</button>
+          <div className="flex items-center gap-3">
+            {user ? (
+              <>
+                {" "}
+                <button onClick={handleLogOut} className="font-bold">
+                  LogOut
+                </button>
+              </>
+            ) : (
+              <>
+                <Link to="/register">
+                  <button className="font-bold">Register</button>
+                </Link>
+                <Link to="/login">
+                  <button className="font-bold">Login</button>
+                </Link>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </div>

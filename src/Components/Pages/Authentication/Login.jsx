@@ -1,4 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
+import img1 from "../../../assets/others/authentication1.png";
+import bgImg from "../../../assets/others/authentication.png";
+import goggle from "../../../assets/others/google (2).png";
 import {
   loadCaptchaEnginge,
   LoadCanvasTemplate,
@@ -7,6 +10,7 @@ import {
 import { AuthContext } from "../../provider/AuthProvider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import SocialLogin from "../../SocialLogin/SocialLogin";
 const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -40,19 +44,34 @@ const Login = () => {
       setDisable(true);
     }
   };
+ 
   return (
     <div>
-      <div className="hero bg-base-200 min-h-screen">
-        <div className="hero-content flex-col md:flex-row-reverse">
+      <div
+        className="hero min-h-screen"
+        style={{
+          backgroundImage: `url('${bgImg}')`,
+        }}
+      >
+        <div
+          className="hero-content gap-16 py-8 flex-col md:flex-row"
+          style={{
+            backgroundImage: `url('${bgImg}')`,
+            boxShadow: " 0 0 10px rgba(0, 0, 0, 0.5)",
+            borderRadius: "8px",
+          }}
+        >
           <div className="text-center md:w-1/2 lg:text-left">
-            <h1 className="text-5xl font-bold">Login now!</h1>
-            <p className="py-6">
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
-              et a id nisi.
-            </p>
+            <img
+              style={{
+                backgroundImage: `url('${bgImg}')`,
+              }}
+              src={img1}
+              alt=""
+            />
           </div>
-          <div className="card bg-base-100 w-1/2 max-w-sm shrink-0 shadow-2xl">
+          <div className="card  w-1/2 max-w-sm font-semibold">
+            <h2 className="text-center text-2xl font-bold">Login</h2>
             <form onSubmit={handleLogin} className="card-body">
               <div className="form-control">
                 <label className="label">
@@ -100,17 +119,21 @@ const Login = () => {
               <div className="form-control mt-6">
                 <input
                   disabled={disable}
-                  className="btn btn-primary"
+                  className="py-3 bg-opacity-70 rounded-lg text-white font-bold bg-[#D1A054]"
                   type="submit"
                   value="Login"
                 />
               </div>
             </form>
-            <p>
+            <p className="text-center text-[#D1A054] mb-2">
               <small>
-                New Here? <Link to="/register">Create an Account</Link>
+                New Here? Create an Account -<Link to="/register">SingUp</Link>
               </small>
             </p>
+            <div className="text-center text-[#D1A054] ">
+              <small>Or Sign in with</small>
+              <SocialLogin></SocialLogin>
+            </div>
           </div>
         </div>
       </div>

@@ -3,15 +3,20 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../provider/AuthProvider";
 import Swal from "sweetalert2";
-
+import img2 from "../../../assets/others/authentication1.png";
+import bgSignup from "../../../assets/others/authentication.png";
+import goggle from "../../../assets/others/google (2).png";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import SocialLogin from "../../SocialLogin/SocialLogin";
 const Register = () => {
+  const axiosPublic = useAxiosPublic();
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { createUser, updateUserProfile } = useContext(AuthContext);
   const onSubmit = (data) => {
     console.log(data);
@@ -19,29 +24,51 @@ const Register = () => {
       const loggedUser = result.user;
       console.log(loggedUser);
       updateUserProfile(data.name, data.photoURL).then(() => {
-        reset();
-        Swal.fire({
-          title: " Successful",
-          text: "You create your profile  successfully!!",
-          icon: "success",
+        const userInfo = {
+          name: data.name,
+          email: data.email,
+        };
+        axiosPublic.post("/users", userInfo).then((res) => {
+          if (res.data.insertedId) {
+            reset();
+            Swal.fire({
+              title: " Successful",
+              text: "You create your profile  successfully!!",
+              icon: "success",
+            });
+            navigate("/");
+          }
         });
-        navigate('/')
       });
     });
   };
   return (
     <div>
-      <div className="hero bg-base-200 min-h-screen">
-        <div className="hero-content flex-col lg:flex-row-reverse">
-          <div className="text-center w-1/2 lg:text-left">
-            <h1 className="text-5xl font-bold">Login now!</h1>
-            <p className="py-6">
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
-              et a id nisi.
-            </p>
+      <div
+        style={{
+          backgroundImage: `url('${bgSignup}')`,
+        }}
+        className="hero min-h-screen"
+      >
+        <div
+          style={{
+            backgroundImage: `url('${bgSignup}')`,
+            boxShadow: " 0 0 10px rgba(0, 0, 0, 0.5)",
+            borderRadius: "8px",
+          }}
+          className="hero-content gap-10  flex-col lg:flex-row-reverse"
+        >
+          <div className="text-center md:w-1/2 lg:text-left">
+            <img
+              style={{
+                backgroundImage: `url('${bgSignup}')`,
+              }}
+              src={img2}
+              alt=""
+            />
           </div>
-          <div className="card bg-base-100 w-1/2 max-w-sm shrink-0 shadow-2xl">
+          <div className="card  w-1/2 max-w-sm ">
+            <h2 className="text-center text-2xl font-bold">Sign Up</h2>
             <form onSubmit={handleSubmit(onSubmit)} className="card-body">
               <div className="form-control">
                 <label className="label">
@@ -132,11 +159,17 @@ const Register = () => {
                 />
               </div>
             </form>
-            <p>
+
+            <p className="text-center text-[#D1A054] mb-2">
               <small>
                 Already Have an account? <Link to="/login">SignIn Here</Link>
               </small>
             </p>
+            <div className="text-center text-[#D1A054] ">
+              <small className="">Or SignUp with</small>
+
+              <SocialLogin></SocialLogin>
+            </div>
           </div>
         </div>
       </div>

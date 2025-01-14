@@ -29,7 +29,7 @@ const AddItems = () => {
         image: res.data.data.display_url,
       };
       const menuRes = await axiosSecure.post("/Menu", menuItem);
-      console.log(menuRes.data);
+      
       if(menuRes.data.insertedId){
         reset()
         Swal.fire({
@@ -39,7 +39,7 @@ const AddItems = () => {
           });
       }
     }
-    console.log(res.data);
+  
   };
   return (
     <div>

@@ -5,9 +5,11 @@ import Swal from "sweetalert2";
 import { CgProfile } from "react-icons/cg";
 import { GiShoppingCart } from "react-icons/gi";
 import useCart from "../../Hooks/useCart";
+import useAdmin from "../../Hooks/useAdmin";
 const Navbar = () => {
   const { user, logOut, loading } = useContext(AuthContext);
   const [cart] = useCart();
+  const [isAdmin] = useAdmin();
   const handleLogOut = () => {
     logOut().then(() => {
       Swal.fire({
@@ -25,9 +27,20 @@ const Navbar = () => {
       <li>
         <Link>Contact Us</Link>
       </li>
-      <li>
-        <Link>dashBoard</Link>
-      </li>
+
+      {user && isAdmin && (
+        <li>
+          {" "}
+          <Link to="/dashboard/adminHome">dashBoard</Link>
+        </li>
+      )}
+      {user && !isAdmin && (
+        <li>
+          {" "}
+          <Link to="/dashboard/userHome">dashBoard</Link>
+        </li>
+      )}
+
       <li>
         <Link to="/">Our Menu</Link>
       </li>
@@ -84,7 +97,7 @@ const Navbar = () => {
                 <button onClick={handleLogOut} className="font-bold">
                   LogOut
                 </button>
-                <Link to='/dashboard/cart'>
+                <Link to="/dashboard/cart">
                   <button className="w-12 h-12 rounded-full bg-green-800 flex justify-center items-center">
                     <div>
                       <GiShoppingCart className="text-3xl relative text-white" />
@@ -94,7 +107,11 @@ const Navbar = () => {
                     </div>
                   </button>
                 </Link>
-                <img className="w-12 h-12 rounded-full" src={user?.photoURL} alt="" />
+                <img
+                  className="w-12 h-12 rounded-full"
+                  src={user?.photoURL}
+                  alt=""
+                />
                 {/* <CgProfile className="w-10 h-10"/> */}
               </>
             ) : (
@@ -105,7 +122,7 @@ const Navbar = () => {
                 <Link to="/login">
                   <button className="font-bold">Login</button>
                 </Link>
-                <CgProfile className="w-10 h-10"/>
+                <CgProfile className="w-10 h-10" />
               </>
             )}
           </div>

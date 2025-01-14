@@ -3,6 +3,7 @@ import useCart from "../../../../Hooks/useCart";
 import { FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import useAxios from "../../../../Hooks/useAxios";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const [cart, refetch] = useCart();
@@ -38,8 +39,11 @@ const Cart = () => {
       <div className="flex justify-between items-center mb-10">
         <h2>Total Orders: {cart.length}</h2>
         <h2>Total Price: {totalPrice}</h2>
-        {/* <h2>Total Price: {totalPrice}</h2> */}
-        <button className="btn btn-primary">Pay</button>
+
+        <Link to="/dashboard/payment">
+          {" "}
+          <button className="btn btn-primary">Pay</button>
+        </Link>
       </div>
       <div>
         <div className="overflow-x-auto">

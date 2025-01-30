@@ -25,7 +25,7 @@ const Navbar = () => {
         <Link>Home</Link>
       </li>
       <li>
-        <Link>Contact Us</Link>
+        <Link to="/contact">Contact Us</Link>
       </li>
 
       {user && isAdmin && (
@@ -42,7 +42,7 @@ const Navbar = () => {
       )}
 
       <li>
-        <Link to="/">Our Menu</Link>
+        <Link to="/menu">Our Menu</Link>
       </li>
       <li>
         <Link to="/order">our Shop</Link>
